@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  golady-bot:
+      image: golang:1.6.1-alpine
+      build: .
+      env_file:
+        - ./config/app.env
+      volumes:
+        - .:/go/src/app
+      restart: unless-stopped
