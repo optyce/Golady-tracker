@@ -7,8 +7,6 @@ import (
   "golady-tracker/config"
 )
 
-// path /orgs/optyce/issues
-
 func RequestGithubOptBasicAuth(pathName string, basicAuth bool) *http.Response {
   client := &http.Client{}
   githubPath := "https://api.github.com/" + pathName
