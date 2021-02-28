@@ -8,6 +8,7 @@ import (
 
 	// internal pkg
 	"golady-tracker/config"
+	"golady-tracker/github/service"
 
 	"github.com/bwmarrin/discordgo"
 )
