@@ -2,7 +2,6 @@ package github
 
 import (
 	"context"
-	"fmt"
 	"github.com/google/go-github/v35/github"
 	"golady-tracker/utils"
 )
@@ -10,13 +9,27 @@ import (
 var client = utils.GithubClient()
 
 func ReturnIssuesFromRepoName(repoOwner, repoName string) ([]*github.Issue, error) {
-	fmt.Println(repoOwner, repoName)
 	issues, _, err := client.Issues.ListByRepo(context.Background(), repoOwner, repoName, nil)
 	if err != nil {
-		fmt.Print(err)
 		return issues, err
 	}
 	return issues, nil
+}
+
+func ReturnAllIssuesIDFromRepoName(repoOwner, repoName string) ([]*github.Issue, error) {
+	issuesID, _, err := client.Issues.ListByRepo(context.Background(), repoOwner, repoName, nil)
+	if err != nil {
+		return issuesID, err
+	}
+	return issuesID, nil
+}
+
+func ReturnIssuesFromIDRepoName(repoOwner, repoName string, id int) (*github.Issue, error) {
+	issueID, _, err := client.Issues.Get(context.Background(), repoOwner, repoName, id)
+	if err != nil {
+		return issueID, err
+	}
+	return issueID, nil
 }
 
 /*

@@ -76,7 +76,6 @@ func main() {
 		RateLimiter: dgc.NewRateLimiter(5*time.Second, 1*time.Second, func(ctx *dgc.Ctx) {
 			ctx.RespondText("You are being rate limited!")
 		}),
-
 		// Now we want to define the command handler
 		Handler: cmd.CommandGetIssuesProjectName,
 	})
