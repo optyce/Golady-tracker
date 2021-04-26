@@ -1,7 +1,6 @@
 package discord
 
 import (
-	"encoding/json"
 	"fmt"
 	"golady-tracker/github"
 
@@ -19,9 +18,14 @@ func CommandGetIssuesProjectName(ctx *dgc.Ctx) {
 		fmt.Println(err)
 	}
 
-	structToString, err := json.Marshal(issues)
-	if err != nil {
-		fmt.Print(err)
+	for _, value := range issues {
+		var res string
+		if value.Body == nil {
+			res = *value.Title
+		} else {
+			res = *value.Title + ": " + *value.Body }
+		if err := ctx.RespondText(res); err != nil {
+			fmt.Println(err)
+		}
 	}
-	ctx.RespondText(string(structToString))
 }
