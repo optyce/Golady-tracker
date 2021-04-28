@@ -3,6 +3,7 @@ package discord
 import (
 	"fmt"
 	"golady-tracker/github"
+	"strconv"
 
 	"github.com/Lukaesebrot/dgc"
 )
@@ -10,6 +11,7 @@ import (
 
 type ProjectCtx struct {
 	repoOwner, repoName string
+	id int
 }
 
 func initProjectCtx(ctx *dgc.Ctx) ProjectCtx {
@@ -54,9 +56,18 @@ func CommandGetIDIssuesProjectName(ctx *dgc.Ctx) {
 
 	var res string
 	for _, value := range issuesID {
-		res = string(*value.ID) + ": " + *value.Body
+		res = strconv.FormatInt(*value.ID, 10) + ": " + *value.Body
 	}
 	if err := ctx.RespondText(res); err != nil {
+		fmt.Println(err)
+	}
+}
+
+func CommandGetFullIssueFromID(ctx *dgc.Ctx) {
+	projectCtx := initProjectCtx(ctx)
+
+	_, err := github.ReturnIssuesFromIDRepoName(projectCtx.repoOwner, projectCtx.repoName, projectCtx.id)
+	if err != nil {
 		fmt.Println(err)
 	}
 }
